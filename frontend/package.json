@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.13.6",
     "bootstrap": "^5.3.8",
+    "colorthief": "^3.3.1",
     "embla-carousel": "^9.0.0-rc01",
     "embla-carousel-fade": "^9.0.0-rc01",
     "embla-carousel-react": "^9.0.0-rc01",

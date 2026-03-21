@@ -20,7 +20,7 @@
 
 .movie-poster{
   height: 300px;
-  border: 1px solid  var(--border-color, gold);
+  border: 2px solid  #2F70C1;
   border-radius: 10px;
   overflow: hidden;
 }
