@@ -1,0 +1,22 @@
+.not_found {
+  display: flex;             /* flex container */
+  justify-content: center;   /* horizontal centering */
+  align-items: center;       /* vertical centering */
+  height: 100vh;             /* fill full viewport height */
+  text-align: center;        /* center multi-line text */
+  font-size: 5rem;           /* default font size */
+  padding: 1rem;             /* optional padding for smaller screens */
+}
+
+/* Optional: responsive font size */
+@media (max-width: 768px) {
+  .not-found {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .not-found {
+    font-size: 2rem;
+  }
+}

@@ -23,7 +23,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
             const response = await api.post("/v1/reviews",{reviewBody:rev.value,imdbId:movieId});
             const updatedReviews = [...reviews,{body:rev.value}];
             console.log(reviews);
-            rev.value = "Write your review here";
+            rev.value = "";
             setReviews(updatedReviews); 
         }catch(e){
             console.log(e);
@@ -32,9 +32,6 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
 
   return (
     <Container>
-        <Row>
-            <Col><h3>Reviews</h3></Col>
-        </Row>
         <Row className="mt-2">
             <Col>
                 <img src={movie?.poster} alt=""/>
@@ -44,8 +41,11 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                     <>
                         <Row>
                             <Col>
-                                <ReviewForm handleSumbit={addReview} revText={revText} labelText="Share your review?"/>
+                                <ReviewForm  handleSumbit={addReview} revText={revText} labelText="Share your review?"/>
                             </Col>
+                        </Row>
+                        <Row>
+                            <Col><h1>Reviews</h1></Col>
                         </Row>
                         <Row>
                             <Col>
@@ -59,7 +59,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                         return(
                             <>
                                 <Row>
-                                    <Col>{r.body}</Col>
+                                    <Col style={{fontSize: '2rem'}}>{r.body}</Col>
                                 </Row>
                                 <Row>
                                     <Col>

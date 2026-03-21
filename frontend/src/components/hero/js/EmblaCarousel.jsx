@@ -94,7 +94,7 @@ const EmblaCarousel = ({ movies, options }) => {
 
   return (
     <div className="embla">
-      <div className="embla__viewport" ref={emblaRef}>
+      <div className="embla__viewport" ref={emblaRef} >
         <div className="embla__container">
           {movies?.map((movie) => (
             <div className="embla__slide" key={movie.imdbId}
@@ -122,7 +122,7 @@ const EmblaCarousel = ({ movies, options }) => {
                   </div>
 
                   <div className='movie-review-button-container'>
-                    <Button variant="info" className='movie-review-button' onClick={()=>reviews(movie.imdbId)}>
+                    <Button variant="info" size="lg" style={{ fontSize: '2rem', padding: '1rem 1rem' }} onClick={()=>reviews(movie.imdbId)}>
                       Reviews
                     </Button>
                   </div>
