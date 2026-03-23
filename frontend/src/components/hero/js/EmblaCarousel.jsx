@@ -62,39 +62,39 @@ const EmblaCarousel = ({ movies, options }) => {
     return () => emblaApi.off('select', onSelect);
   }, [emblaApi]);
 
-  useEffect(() => {
-    console.log("React state updated:", currentSlideIndex);
-  }, [currentSlideIndex]);
-
-
-  //calculate div with class=embla_slide
+  // Avoid race condition between Embla slide initialization and image load
+  // by computing color only after slide nodes exist and the image is loaded.
   useEffect(() => {
     if (!emblaApi || !movies?.length) return;
 
-    if (slideNodesRef.current.length === 0) {
-      slideNodesRef.current = emblaApi.slideNodes();
-      console.log("slideNodes initialized:", slideNodesRef.current);
-    }
-  }, [emblaApi, movies]);
+    const slides = emblaApi.slideNodes();
+    if (!slides.length) return;
 
+    slideNodesRef.current = slides;
 
-  // Compute Color Thief only when current slide changes
-  useEffect(() => {
-    if (!slideNodesRef.current.length) return;
-
-    const imgEl = slideNodesRef.current[currentSlideIndex]
+    const imgEl = slides[currentSlideIndex]
       ?.querySelector('img.embla__slide__img');
 
-    getColor(imgEl).then(color => {
-      setCurrentSlideColor(color); // color is now [R, G, B]
-      console.log("Dominant color:", color);
-    });
-  }, [currentSlideIndex,slideNodesRef.current]);
+    if (!imgEl) return;
+
+    const applyColor = () => {
+      getColor(imgEl)
+        .then(setCurrentSlideColor)
+        .catch(console.error);
+    };
+
+    if (imgEl.complete) {
+      applyColor();
+    } else {
+      imgEl.addEventListener('load', applyColor, { once: true });
+    }
+
+  }, [emblaApi, movies, currentSlideIndex]);
 
 
   return (
     <div className="embla">
-      <div className="embla__viewport" ref={emblaRef} >
+      <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {movies?.map((movie) => (
             <div className="embla__slide" key={movie.imdbId}
