@@ -19,7 +19,6 @@ function App() {
   const getMovies = async () => {
     try{
       const response = await api.get("/v1/movies");
-      console.log(response.data);
       setMovies(response.data);
     }
     catch(e){
